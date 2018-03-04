@@ -7,21 +7,32 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0F24E040973335E02E247D4A /* Pods_FowlTalk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2934E1D272708AB023689460 /* Pods_FowlTalk.framework */; };
 		F35B0116204B909A00AB1BB4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B0115204B909A00AB1BB4 /* AppDelegate.swift */; };
-		F35B0118204B909A00AB1BB4 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B0117204B909A00AB1BB4 /* ViewController.swift */; };
+		F35B0118204B909A00AB1BB4 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B0117204B909A00AB1BB4 /* ChatViewController.swift */; };
 		F35B011B204B909A00AB1BB4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35B0119204B909A00AB1BB4 /* Main.storyboard */; };
 		F35B011D204B909A00AB1BB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F35B011C204B909A00AB1BB4 /* Assets.xcassets */; };
 		F35B0120204B909A00AB1BB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F35B011E204B909A00AB1BB4 /* LaunchScreen.storyboard */; };
+		F35B0128204B965200AB1BB4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = F35B0127204B965200AB1BB4 /* Podfile */; };
+		F35B012B204B9DAC00AB1BB4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = F35B012A204B9DAC00AB1BB4 /* GoogleService-Info.plist */; };
+		F35B012D204B9EB700AB1BB4 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F35B012C204B9EB700AB1BB4 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2934E1D272708AB023689460 /* Pods_FowlTalk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FowlTalk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		86C434CDA986E2DF342B1F5D /* Pods-FowlTalk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FowlTalk.release.xcconfig"; path = "Pods/Target Support Files/Pods-FowlTalk/Pods-FowlTalk.release.xcconfig"; sourceTree = "<group>"; };
+		E41C2A3588EF01943C4852A5 /* Pods-FowlTalk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FowlTalk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-FowlTalk/Pods-FowlTalk.debug.xcconfig"; sourceTree = "<group>"; };
 		F35B0112204B909A00AB1BB4 /* FowlTalk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FowlTalk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F35B0115204B909A00AB1BB4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		F35B0117204B909A00AB1BB4 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		F35B0117204B909A00AB1BB4 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		F35B011A204B909A00AB1BB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		F35B011C204B909A00AB1BB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F35B011F204B909A00AB1BB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F35B0121204B909A00AB1BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F35B0127204B965200AB1BB4 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		F35B0129204B97C600AB1BB4 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F35B012A204B9DAC00AB1BB4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F35B012C204B9EB700AB1BB4 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +40,41 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0F24E040973335E02E247D4A /* Pods_FowlTalk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		51C516A85109BED1B4A224DA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2934E1D272708AB023689460 /* Pods_FowlTalk.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		F235C8A714B7428EAC8DD036 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E41C2A3588EF01943C4852A5 /* Pods-FowlTalk.debug.xcconfig */,
+				86C434CDA986E2DF342B1F5D /* Pods-FowlTalk.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		F35B0109204B909A00AB1BB4 = {
 			isa = PBXGroup;
 			children = (
+				F35B012C204B9EB700AB1BB4 /* Constants.swift */,
+				F35B012A204B9DAC00AB1BB4 /* GoogleService-Info.plist */,
+				F35B0129204B97C600AB1BB4 /* Bridging-Header.h */,
+				F35B0127204B965200AB1BB4 /* Podfile */,
 				F35B0114204B909A00AB1BB4 /* FowlTalk */,
 				F35B0113204B909A00AB1BB4 /* Products */,
+				F235C8A714B7428EAC8DD036 /* Pods */,
+				51C516A85109BED1B4A224DA /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,7 +90,7 @@
 			isa = PBXGroup;
 			children = (
 				F35B0115204B909A00AB1BB4 /* AppDelegate.swift */,
-				F35B0117204B909A00AB1BB4 /* ViewController.swift */,
+				F35B0117204B909A00AB1BB4 /* ChatViewController.swift */,
 				F35B0119204B909A00AB1BB4 /* Main.storyboard */,
 				F35B011C204B909A00AB1BB4 /* Assets.xcassets */,
 				F35B011E204B909A00AB1BB4 /* LaunchScreen.storyboard */,
@@ -71,9 +106,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F35B0124204B909A00AB1BB4 /* Build configuration list for PBXNativeTarget "FowlTalk" */;
 			buildPhases = (
+				15D87612EA1AEB39A02F4920 /* [CP] Check Pods Manifest.lock */,
 				F35B010E204B909A00AB1BB4 /* Sources */,
 				F35B010F204B909A00AB1BB4 /* Frameworks */,
 				F35B0110204B909A00AB1BB4 /* Resources */,
+				B30FCFEF02F816B4358B5001 /* [CP] Embed Pods Frameworks */,
+				58BC0667D3B74B2C82A6524F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -125,19 +163,70 @@
 			files = (
 				F35B0120204B909A00AB1BB4 /* LaunchScreen.storyboard in Resources */,
 				F35B011D204B909A00AB1BB4 /* Assets.xcassets in Resources */,
+				F35B012B204B9DAC00AB1BB4 /* GoogleService-Info.plist in Resources */,
+				F35B0128204B965200AB1BB4 /* Podfile in Resources */,
 				F35B011B204B909A00AB1BB4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		15D87612EA1AEB39A02F4920 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		58BC0667D3B74B2C82A6524F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FowlTalk/Pods-FowlTalk-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B30FCFEF02F816B4358B5001 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-FowlTalk/Pods-FowlTalk-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F35B010E204B909A00AB1BB4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F35B0118204B909A00AB1BB4 /* ViewController.swift in Sources */,
+				F35B0118204B909A00AB1BB4 /* ChatViewController.swift in Sources */,
 				F35B0116204B909A00AB1BB4 /* AppDelegate.swift in Sources */,
+				F35B012D204B9EB700AB1BB4 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -272,6 +361,7 @@
 		};
 		F35B0125204B909A00AB1BB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E41C2A3588EF01943C4852A5 /* Pods-FowlTalk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -280,6 +370,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelliskye.FowlTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -287,6 +378,7 @@
 		};
 		F35B0126204B909A00AB1BB4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 86C434CDA986E2DF342B1F5D /* Pods-FowlTalk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -295,6 +387,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.intelliskye.FowlTalk;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
