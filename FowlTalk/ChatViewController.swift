@@ -8,9 +8,18 @@
 
 import UIKit
 import JSQMessagesViewController
+import FirebaseDatabase
+import GeoFire
+import CoreLocation
+import MapKit
 
-class ChatViewController: JSQMessagesViewController {
+class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
 
+    
+    var latitude = ""
+    var longitude = ""
+    var currentLatitude = 0.0
+    var currentLongitude = 0.0
     var messages = [JSQMessage]()
     
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
@@ -21,15 +30,36 @@ class ChatViewController: JSQMessagesViewController {
         return JSQMessagesBubbleImageFactory()!.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     }()
     
+   let locationManager = CLLocationManager()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        self.locationManager.requestAlwaysAuthorization()
+        if CLLocationManager.locationServicesEnabled() {
+            locationManager.requestAlwaysAuthorization()
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+            //mapView.showsUserLocation = true
+            
+        }
+        // For use in foreground
+        
         let defaults = UserDefaults.standard
+        
+        let geofireRef = Database.database().reference()
+        let geoFire = GeoFire(firebaseRef: geofireRef)
+        
         
         if  let id = defaults.string(forKey: "jsq_id"),
             let name = defaults.string(forKey: "jsq_name")
         {
             senderId = id
             senderDisplayName = name
+            
         }
         else
         {
@@ -73,6 +103,38 @@ class ChatViewController: JSQMessagesViewController {
         })
     }
     
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print(location.coordinate)
+        }
+    }
+    
+    // If we have been deined access give the user the option to change it
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        if(status == CLAuthorizationStatus.denied) {
+            showLocationDisabledPopUp()
+        }
+    }
+    
+    // Show the popup to the user if we have been deined access
+    func showLocationDisabledPopUp() {
+        let alertController = UIAlertController(title: "Background Location Access Disabled",
+                                                message: "In order to deliver pizza we need your location",
+                                                preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        let openAction = UIAlertAction(title: "Open Settings", style: .default) { (action) in
+            if let url = URL(string: UIApplicationOpenSettingsURLString) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
+        alertController.addAction(openAction)
+        
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
     @objc func showDisplayNameDialog()
     {
         let defaults = UserDefaults.standard
@@ -87,7 +149,7 @@ class ChatViewController: JSQMessagesViewController {
             }
             else
             {
-                let names = ["Ford", "Arthur", "Zaphod", "Trillian", "Slartibartfast", "Humma Kavula", "Deep Thought"]
+                let names = ["Anakin", "Obi Wan Kenobi", "Luke", "R2-D2", "BB-8", "Sheev Palpatine", "Darth Vader"]
                 textField.text = names[Int(arc4random_uniform(UInt32(names.count)))]
             }
         }
@@ -140,11 +202,20 @@ class ChatViewController: JSQMessagesViewController {
     
     override func didPressSend(_ button: UIButton!, withMessageText text: String!, senderId: String!, senderDisplayName: String!, date: Date!)
     {
-        let ref = Constants.refs.databaseChats.childByAutoId()
         
-        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text]
+        let ref = Constants.refs.databaseChats.childByAutoId()
+        let refLoc = Constants.refs.databaseLocs.childByAutoId()
+        let location = locationManager.location
+        let lat = location?.coordinate.latitude
+        let long = location?.coordinate.longitude
+        
+        let message = ["sender_id": senderId, "name": senderDisplayName, "text": text] as [String : Any]
+        
+        let locs = ["sender_id": senderId, "name": senderDisplayName, "text": text, "lat": lat, "long": long] as [String : Any]
+       
         
         ref.setValue(message)
+        refLoc.setValue(locs)
         
         finishSendingMessage()
     }
@@ -153,6 +224,8 @@ class ChatViewController: JSQMessagesViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+   
 
 
 }
