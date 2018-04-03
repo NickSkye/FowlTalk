@@ -152,14 +152,14 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
         
         let circleQuery = GeoFire(firebaseRef: geofireRef!).query(at: myLoc, withRadius: 1000/1000)
             
-//            _ = circleQuery.observe(.keyEntered, with: { (key, location) in
-//
-//                if !self.nearbyUsers.contains(key) && key != Auth.auth().currentUser!.uid {
-//                    self.nearbyUsers.append(key)
+            _ = circleQuery.observe(.keyEntered, with: { (key, location) in
+
+                if !self.nearbyUsers.contains(key) && key != Auth.auth().currentUser!.uid {
+                    self.nearbyUsers.append(key)
 //                    print("key \(key)")
-//                }
-//
-//            })
+                }
+
+            })
         
         
             //Execute this code once GeoFire completes the query!
