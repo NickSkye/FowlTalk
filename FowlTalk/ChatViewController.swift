@@ -12,16 +12,26 @@ import FirebaseDatabase
 import GeoFire
 import CoreLocation
 import MapKit
+import FirebaseAuth
+import Firebase
 
 class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
 
     
     var latitude = ""
     var longitude = ""
+    let locationManager = CLLocationManager()
+    
+    var lat: CLLocationDegrees = 0.0
+    var long: CLLocationDegrees = 0.0
     var currentLatitude = 0.0
     var currentLongitude = 0.0
     var messages = [JSQMessage]()
-    
+    var geoFire : GeoFire!
+    var radiusInMeters = 100.00
+    var geofireRef : DatabaseReference!
+    var nearbyUsers = [String]()
+//    var myLocation = Optional(CLLocation(latitude: 0, longitude: 0))
     lazy var outgoingBubble: JSQMessagesBubbleImage = {
         return JSQMessagesBubbleImageFactory()!.outgoingMessagesBubbleImage(with: UIColor.jsq_messageBubbleBlue())
     }()
@@ -30,7 +40,7 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
         return JSQMessagesBubbleImageFactory()!.incomingMessagesBubbleImage(with: UIColor.jsq_messageBubbleLightGray())
     }()
     
-   let locationManager = CLLocationManager()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,11 +56,16 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
             //mapView.showsUserLocation = true
             
         }
+    
+        var location = locationManager.location!
+//        location =
+        lat = location.coordinate.latitude
+        long = location.coordinate.longitude
         // For use in foreground
         
         let defaults = UserDefaults.standard
         
-        let geofireRef = Database.database().reference()
+        geofireRef = Database.database().reference()
         let geoFire = GeoFire(firebaseRef: geofireRef)
         
         
@@ -83,7 +98,7 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
         collectionView.collectionViewLayout.incomingAvatarViewSize = CGSize.zero
         collectionView.collectionViewLayout.outgoingAvatarViewSize = CGSize.zero
        
-        let query = Constants.refs.databaseChats.queryLimited(toLast: 10)
+        let query = Constants.refs.databaseChats.queryLimited(toLast: 100)
         
         _ = query.observe(.childAdded, with: { [weak self] snapshot in
             
@@ -101,7 +116,67 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
                 }
             }
         })
+        findNearbyUsers()
+       
     }
+    
+    
+ 
+    
+    func updateUserLocation() {
+        
+       
+            
+            let userID = senderId
+        geoFire!.setLocation(locationManager.location!, forKey: userID!) { (error) in
+                if (error != nil) {
+                    debugPrint("An error occured: \(error)")
+                } else {
+                    print("Saved location successfully!")
+                }
+            }
+            
+        
+    }
+    
+    func findNearbyUsers() {
+        
+      var myLoc = CLLocation(latitude: 0, longitude: 0)
+        if(locationManager.location != nil){
+            myLoc = CLLocation(latitude: 0, longitude: 0)
+        }
+        else{
+            myLoc = CLLocation(latitude: 0, longitude: 0)
+        }
+            
+        let circleQuery = GeoFire(firebaseRef: geofireRef).query(at: myLoc, withRadius: 100/1000)
+            
+            _ = circleQuery.observe(.keyEntered, with: { (key, location) in
+                
+                if !self.nearbyUsers.contains(key) && key != Auth.auth().currentUser!.uid {
+                    self.nearbyUsers.append(key)
+                }
+                
+            })
+            
+            //Execute this code once GeoFire completes the query!
+            circleQuery.observeReady({
+                
+                for user in self.nearbyUsers {
+                    
+                   Constants.refs.databaseLocs.childByAutoId().observe(.value, with: { snapshot in
+                        let value = snapshot.value as? NSDictionary
+                        print(value)
+                    })
+                }
+                
+            })
+            
+       
+        
+    }
+    
+    
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
@@ -205,9 +280,7 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
         
         let ref = Constants.refs.databaseChats.childByAutoId()
         let refLoc = Constants.refs.databaseLocs.childByAutoId()
-        let location = locationManager.location
-        let lat = location?.coordinate.latitude
-        let long = location?.coordinate.longitude
+        
         
         let message = ["sender_id": senderId, "name": senderDisplayName, "text": text] as [String : Any]
         
