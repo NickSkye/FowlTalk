@@ -143,22 +143,25 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
         
       var myLoc = CLLocation(latitude: 0, longitude: 0)
         if(locationManager.location != nil){
-            myLoc = CLLocation(latitude: 0, longitude: 0)
+            myLoc = locationManager.location!
         }
         else{
             myLoc = CLLocation(latitude: 0, longitude: 0)
         }
+        print("geofireRef \(geofireRef!)")
+        
+        let circleQuery = GeoFire(firebaseRef: geofireRef!).query(at: myLoc, withRadius: 1000/1000)
             
-        let circleQuery = GeoFire(firebaseRef: geofireRef).query(at: myLoc, withRadius: 100/1000)
-            
-            _ = circleQuery.observe(.keyEntered, with: { (key, location) in
-                
-                if !self.nearbyUsers.contains(key) && key != Auth.auth().currentUser!.uid {
-                    self.nearbyUsers.append(key)
-                }
-                
-            })
-            
+//            _ = circleQuery.observe(.keyEntered, with: { (key, location) in
+//
+//                if !self.nearbyUsers.contains(key) && key != Auth.auth().currentUser!.uid {
+//                    self.nearbyUsers.append(key)
+//                    print("key \(key)")
+//                }
+//
+//            })
+        
+        
             //Execute this code once GeoFire completes the query!
             circleQuery.observeReady({
                 
@@ -166,7 +169,7 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
                     
                    Constants.refs.databaseLocs.childByAutoId().observe(.value, with: { snapshot in
                         let value = snapshot.value as? NSDictionary
-                        print(value)
+                        print("value \(value)")
                     })
                 }
                 
@@ -289,7 +292,7 @@ class ChatViewController: JSQMessagesViewController, CLLocationManagerDelegate {
         
         ref.setValue(message)
         refLoc.setValue(locs)
-        
+        findNearbyUsers()
         finishSendingMessage()
     }
 
